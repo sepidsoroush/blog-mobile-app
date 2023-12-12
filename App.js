@@ -4,7 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 
 import { Provider } from "./src/context/BlogContext";
 
-import IndexScreen from "./src/screens/IndexScreen";
+import HomeScreen from "./src/screens/HomeScreen";
 import ShowScreen from "./src/screens/ShowScreen";
 import CreateScreen from "./src/screens/CreateScreen";
 import EditScreen from "./src/screens/EditScreen";
@@ -15,10 +15,10 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerTitle: "Blog list" }}>
-        <Stack.Screen name="IndexScreen" component={IndexScreen} />
-        <Stack.Screen name="ShowScreen" component={ShowScreen} />
-        <Stack.Screen name="CreateScreen" component={CreateScreen} />
-        <Stack.Screen name="EditScreen" component={EditScreen} />
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Show" component={ShowScreen} />
+        <Stack.Screen name="Create" component={CreateScreen} />
+        <Stack.Screen name="Edit" component={EditScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

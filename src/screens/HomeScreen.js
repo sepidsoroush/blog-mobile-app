@@ -1,6 +1,5 @@
-import React, { useContext } from "react";
+import React, { useContext, useLayoutEffect } from "react";
 import {
-  Button,
   FlatList,
   StyleSheet,
   Text,
@@ -11,20 +10,29 @@ import { useNavigation } from "@react-navigation/native";
 import { FontAwesome } from "@expo/vector-icons";
 import { Context } from "../context/BlogContext";
 
-const IndexScreen = () => {
-  const { state, addBlogPost, deleteBlogPost } = useContext(Context);
+const HomeScreen = () => {
+  const { state, deleteBlogPost } = useContext(Context);
   const navigation = useNavigation();
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity onPress={() => navigation.navigate("Create")}>
+          <FontAwesome name="plus" size={24} color="black" />
+        </TouchableOpacity>
+      ),
+    });
+  }, [navigation]);
 
   return (
     <View>
-      <Button title="Add Blog Post" onPress={addBlogPost} />
       <FlatList
         data={state}
         keyExtractor={(data) => data.id}
         renderItem={({ item }) => {
           return (
             <TouchableOpacity
-              onPress={() => navigation.navigate("ShowScreen", { id: item.id })}
+              onPress={() => navigation.navigate("Show", { id: item.id })}
             >
               <View style={styles.row}>
                 <Text style={styles.title}>{item.title}</Text>
@@ -39,6 +47,7 @@ const IndexScreen = () => {
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
@@ -56,4 +65,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default IndexScreen;
+export default HomeScreen;

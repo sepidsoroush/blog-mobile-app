@@ -8,7 +8,8 @@ const blogReducer = (state, action) => {
         ...state,
         {
           id: Math.floor(Math.random() * 99999),
-          title: `Blog Post #${state.length + 1}`,
+          title: action.payload.title,
+          content: action.payload.content,
         },
       ];
     case "DELETE":
@@ -20,8 +21,9 @@ const blogReducer = (state, action) => {
 };
 
 const addBlogPost = (dispatch) => {
-  return () => {
-    dispatch({ type: "CREATE" });
+  return (title, content, callback) => {
+    dispatch({ type: "CREATE", payload: { title, content } });
+    callback();
   };
 };
 
