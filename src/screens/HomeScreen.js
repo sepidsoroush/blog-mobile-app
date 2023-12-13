@@ -1,4 +1,4 @@
-import React, { useContext, useLayoutEffect } from "react";
+import React, { useContext, useEffect, useLayoutEffect } from "react";
 import {
   FlatList,
   StyleSheet,
@@ -11,8 +11,18 @@ import { FontAwesome } from "@expo/vector-icons";
 import { Context } from "../context/BlogContext";
 
 const HomeScreen = () => {
-  const { state, deleteBlogPost } = useContext(Context);
+  const { state, deleteBlogPost, getBlogPosts } = useContext(Context);
   const navigation = useNavigation();
+
+  useEffect(() => {
+    getBlogPosts();
+
+    const unsuscribe = navigation.addListener("focus", () => {
+      getBlogPosts();
+    });
+
+    return unsuscribe;
+  }, []);
 
   useLayoutEffect(() => {
     navigation.setOptions({
